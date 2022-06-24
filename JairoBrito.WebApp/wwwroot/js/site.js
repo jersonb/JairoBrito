@@ -2,3 +2,12 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+$('.toast-possition').show();
+
+setTimeout(close, 10000);
+
+$('.btn-close').click(close);
+
+function close() {
+    $('.toast-possition').hide();
+}

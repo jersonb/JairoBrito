@@ -15,12 +15,13 @@ namespace JairoBrito.WebApp.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Sucess = false;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Send([FromForm] MessageViewObject message)
+        public async Task<IActionResult> Create([FromForm] MessageViewObject message)
         {
             if (ModelState.IsValid)
             {
@@ -35,7 +36,9 @@ namespace JairoBrito.WebApp.Controllers
 
                 context.Messages.Add(messageData);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+
+                ViewBag.Sucess = true;
+                ModelState.Clear();
             }
             return View(nameof(Create));
         }
