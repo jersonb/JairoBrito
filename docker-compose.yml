@@ -1,0 +1,13 @@
+﻿version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: MyPass01
+      POSTGRES_USER: User01
+      POSTGRES_DB: JairoBrito
+    ports:
+    - "5432:5432" 
