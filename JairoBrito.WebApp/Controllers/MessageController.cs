@@ -15,13 +15,13 @@ namespace JairoBrito.WebApp.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Sucess = false;
+            ViewBag.Sucess = null;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] MessageViewObject message)
+        public async Task<IActionResult> Create([FromForm] MessageViewObject message, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
@@ -34,11 +34,20 @@ namespace JairoBrito.WebApp.Controllers
                     Text = message.Text
                 };
 
-                context.Messages.Add(messageData);
-                await context.SaveChangesAsync();
+                try
+                {
+                    context.Messages.Add(messageData);
+                    await context.SaveChangesAsync(cancellationToken);
 
-                ViewBag.Sucess = true;
-                ModelState.Clear();
+                    ModelState.Clear();
+                    ViewBag.Sucess = true;
+                    ViewData["Message-Sucess"] = "Sua mensagem foi enviada com sucesso!";
+                }
+                catch
+                {
+                    ViewBag.Sucess = false;
+                    ViewData["Message-Error"] = "Houve um erro ao enviar sua mensagem, por favor tente novamente em breve.";
+                }
             }
             return View(nameof(Create));
         }

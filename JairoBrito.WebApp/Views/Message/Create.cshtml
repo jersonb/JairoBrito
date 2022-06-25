@@ -4,9 +4,9 @@
     ViewData["Title"] = "Jairo Brito - Deixe sua Mensagem";
 }
 
-<h1>Create</h1>
+<h1>Canal Direto</h1>
 
-<h4>MessageRequest</h4>
+<h4>Me envie uma mensagem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -45,17 +45,21 @@
 
     </div>
 </div>
-@if (@ViewBag.Sucess)
+@if(ViewBag.Sucess != null)
 {
-    <partial name="_ToastSucess" />
+    if (ViewBag.Sucess)
+    {
+        <partial name="_ToastSucess" view-data="ViewData"/>
+    }
+    else
+    {
+        <partial name="_ToastError" view-data="ViewData" />
+    }
 }
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
 
-        
-    </script>
 }

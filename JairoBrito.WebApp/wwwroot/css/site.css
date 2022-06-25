@@ -25,13 +25,12 @@ body {
     padding: 20px;
 }
 
-.toast-sucess {
+.toast-message {
     width: 100%;
     max-width:500px;
     height: 100%;
     max-height:120px;
     padding: 10px;
-    border-left: 8px solid #47f764;
     border-radius: 7px;
     background-color: #ffffff;
     box-shadow: 0 15px 30px rgba(0,0,0,0.08);
@@ -40,15 +39,27 @@ body {
     grid-template-columns: 0.5fr 6fr 0.5fr;
 }
 
+.toast-sucess {
+    border-left: 8px solid #47f764;
+}
+
+.toast-error {
+    border-left: 8px solid #ff0000;
+}
+
 .toast-sucess i {
     color: #47f764;
 }
 
-.container-1 i {
+.toast-error i {
+    color: #ff0000;
+}
+
+.toast-message > .container-1 i {
     font-size: 40px;
 }
 
-.container-1, .container-2 {
-    align-self:center;
+.toast-message >  .container-1, .container-2 {
+    align-self: center;
 }
 

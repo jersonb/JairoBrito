@@ -38,4 +38,5 @@ public class MessageViewObject
     [Required(ErrorMessage = "Informe a mensagem")]
     [StringLength(1000, MinimumLength = 2, ErrorMessage = "Informe a mensagem")]
     public string Text { get; set; }
+
 }
