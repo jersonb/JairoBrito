@@ -8,48 +8,52 @@
 
 <h4>Me envie uma mensagem</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="message-form-grid">
+        <div class="container-1">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="Email" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <input asp-for="PhoneNumber" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Subject" class="control-label"></label>
-                <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
+                <input asp-for="Subject" class="form-control" />
             </div>
+        </div>
+        <div class="container-2">
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <textarea rows="5" cols="30" asp-for="Text" class="form-control">
-                </textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
+                <textarea rows="10" asp-for="Text" class="form-control">
+                </textarea>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="form-group ">
+            <input type="submit" value="Enviar" class="btn btn-primary right" />
+        </div>
 
     </div>
-</div>
-@if(ViewBag.Sucess != null)
+</form>
+
+@if (ViewBag.Sucess != null)
 {
     if (ViewBag.Sucess)
     {
-        <partial name="_ToastSucess" view-data="ViewData"/>
+        <partial name="_ToastSucess" view-data="ViewData" />
     }
     else
     {
