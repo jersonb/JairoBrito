@@ -45,16 +45,30 @@ namespace JairoBrito.WebApp.Controllers
 
                 var send = await SendEmail(message, cancellationToken);
 
+                if (saved > 0 && send.IsSuccessStatusCode)
+                {
+                    ModelState.Clear();
+                    ViewBag.Sucess = true;
+                    ViewData["Message-Sucess"] = "Sua mensagem foi enviada com sucesso!";
+                }
+
+                if (saved <= 0 && send.IsSuccessStatusCode)
+                {
+                    ViewBag.Sucess = false;
+                    ViewData["Message-Error"] = "Houve um erro ao armazenar sua mensagem mas não se preocupe pois ela foi enviada para o email.";
+                }
+
+                if (saved > 0 && !send.IsSuccessStatusCode)
+                {
+                    ViewBag.Sucess = false;
+                    ViewData["Message-Error"] = "Houve um erro ao enviar sua mensagem por email mas não se preocupe pois ela foi armazenada.";
+                }
+
                 if (!(saved > 0 && send.IsSuccessStatusCode))
                 {
                     ViewBag.Sucess = false;
-                    ViewData["Message-Error"] = "Houve um erro ao enviar sua mensagem, por favor tente novamente em breve.";
-                    return View(nameof(Create));
+                    ViewData["Message-Error"] = "estamos com um problema no sistema, por favor tente novamente em breve.";
                 }
-
-                ModelState.Clear();
-                ViewBag.Sucess = true;
-                ViewData["Message-Sucess"] = "Sua mensagem foi enviada com sucesso!";
             }
             return View(nameof(Create));
         }
@@ -69,10 +83,11 @@ namespace JairoBrito.WebApp.Controllers
             var from = new EmailAddress(emailFrom, message.Name);
 
             var to = new EmailAddress(emailTo, message.Name);
+
             var htmlContent = @$"<strong> De: {message.Email} </strong><br>
                                 <strong> Telefone: {message.PhoneNumber} </strong><br>
-                                <p>{message.Text}</p>
-                                ";
+                                <p>{message.Text}</p>";
+
             var msg = MailHelper.CreateSingleEmail(from, to, message.Subject, message.Text, htmlContent);
             var response = await client.SendEmailAsync(msg, cancellationToken);
 
